@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lisa Chidem — Software Engineer. Games, desktop tools, backend systems, and rapid prototypes. 6 shipped Steam titles. Available for freelance and contract work worldwide.">
+  <title>Lisa Chidem — Software Engineer</title>
+  <link rel="canonical" href="https://lisachidem.com">
+  <!-- OG / social preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lisa Chidem — Software Engineer">
+  <meta property="og:description" content="Games, tools, backend, prototypes — I build whatever the project needs, fast. 6 shipped Steam titles. Available for freelance and contract work worldwide.">
+  <meta property="og:url" content="https://lisachidem.com">
+  <meta property="og:image" content="https://lisachidem.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Lisa Chidem — Software Engineer">
+  <meta name="twitter:description" content="Games, tools, backend, prototypes — I build whatever the project needs, fast. 6 shipped Steam titles.">
+  <meta name="twitter:image" content="https://lisachidem.com/og-image.png">
+  <!-- favicon: LC_ monogram -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23080808'/%3E%3Ctext x='3' y='23' font-family='monospace' font-size='14' font-weight='700' fill='%2300ff88'%3ELC_%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #080808;
+      --bg-card:     #0d0d0d;
+      --bg-hover:    #121212;
+      --border:      #1c1c1c;
+      --accent:      #00ff88;
+      --accent-glow: rgba(0, 255, 136, 0.12);
+      --text:        #e0e0e0;
+      --text-dim:    #888;
+      --text-muted:  #444;
+      --mono: 'JetBrains Mono', 'Courier New', monospace;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* noise grain */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* scanlines */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        transparent 3px,
+        rgba(0, 0, 0, 0.06) 3px,
+        rgba(0, 0, 0, 0.06) 4px
+      );
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    /* ── nav ───────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 200;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8, 8, 8, 0.88);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.18s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--accent); }
+
+    /* ── hero ──────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle grid bg */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,255,136,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,136,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    /* vignette */
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 50%, transparent 40%, var(--bg) 100%);
+      pointer-events: none;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 20%;
+      left: -10%;
+      width: 600px;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(0,255,136,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+    }
+
+    .hero-skills {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      min-width: 300px;
+    }
+
+    .hero-skill-card {
+      background: var(--bg-card);
+      padding: 1.4rem 1.5rem;
+      transition: background 0.18s;
+    }
+
+    .hero-skill-card:hover { background: var(--bg-hover); }
+
+    .hero-skill-sym {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      opacity: 0.7;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-skill-name {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-skill-desc {
+      font-size: 0.74rem;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1.75rem;
+      opacity: 0.85;
+    }
+
+    .hero-name {
+      font-family: var(--mono);
+      font-size: clamp(2.6rem, 6.5vw, 5.2rem);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.05;
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.02em;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 0.55em;
+      height: 0.9em;
+      background: var(--accent);
+      margin-left: 0.1em;
+      vertical-align: baseline;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    .hero-title {
+      font-family: var(--mono);
+      font-size: clamp(0.95rem, 2.2vw, 1.35rem);
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 1.75rem;
+      opacity: 0.9;
+      transition: opacity 0.35s ease;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      color: var(--text-dim);
+      max-width: 480px;
+      margin-bottom: 2.75rem;
+      line-height: 1.55;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2.25rem;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+    }
+
+    .btn:hover {
+      background: var(--accent);
+      color: #000;
+      box-shadow: 0 0 24px var(--accent-glow);
+    }
+
+    /* ── shared section layout ─────────────────────────── */
+    .section-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 6rem 2.5rem;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+      opacity: 0.8;
+    }
+
+    .section-title {
+      font-family: var(--mono);
+      font-size: clamp(1.4rem, 2.8vw, 2rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3rem;
+      letter-spacing: -0.01em;
+    }
+
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    /* ── what i do ─────────────────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border);
+    }
+
+    .skill-card {
+      padding: 2rem 1.75rem;
+      border-right: 1px solid var(--border);
+      background: var(--bg-card);
+      transition: background 0.18s;
+    }
+
+    .skill-card:last-child { border-right: none; }
+    .skill-card:hover { background: var(--bg-hover); }
+
+    .skill-sym {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 1.1rem;
+      opacity: 0.7;
+    }
+
+    .skill-name {
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.65rem;
+    }
+
+    .skill-desc {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      line-height: 1.55;
+    }
+
+    /* ── work samples / carousel ───────────────────────── */
+    .carousel {
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      position: relative;
+    }
+
+    .carousel-slides {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .carousel-slide {
+      display: none;
+      grid-template-columns: 1.1fr 1fr;
+    }
+
+    .carousel-slide.active { display: grid; }
+
+    .carousel-left {
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .carousel-img-wrap {
+      position: relative;
+      aspect-ratio: 460 / 215;
+      overflow: hidden;
+      background: #0c0c0c;
+      flex-shrink: 0;
+    }
+
+    .carousel-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: opacity 0.2s;
+    }
+
+    .steam-badge {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      color: #000;
+      background: var(--accent);
+      padding: 0.18rem 0.5rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-decoration: none;
+      z-index: 1;
+    }
+
+    .screenshot-strip {
+      display: flex;
+      gap: 1px;
+      background: var(--border);
+      border-top: 1px solid var(--border);
+    }
+
+    .ss-thumb {
+      flex: 1;
+      height: 58px;
+      object-fit: cover;
+      cursor: pointer;
+      opacity: 0.4;
+      transition: opacity 0.15s;
+      display: block;
+    }
+
+    .ss-thumb:hover { opacity: 0.75; }
+    .ss-thumb.active { opacity: 1; outline: 1px solid var(--accent); }
+
+    .carousel-right {
+      padding: 2rem 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-studio {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.4rem;
+      opacity: 0.7;
+    }
+
+    .project-name {
+      font-family: var(--mono);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .project-link {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.18s, border-color 0.18s;
+    }
+
+    .project-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      padding: 0.18rem 0.5rem;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+      transition: color 0.18s, border-color 0.18s;
+    }
+
+    .tag:hover { color: var(--accent); border-color: rgba(0,255,136,0.3); }
+    a.tag { text-decoration: none; }
+    a.tag[href*="steampowered"] { color: var(--accent); border-color: rgba(0,255,136,0.3); }
+
+    .carousel-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .carousel-arrow {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      width: 2rem;
+      height: 2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.18s, border-color 0.18s;
+      flex-shrink: 0;
+    }
+
+    .carousel-arrow:hover { color: var(--accent); border-color: var(--accent); }
+
+    .carousel-dots {
+      display: flex;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .carousel-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--border);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.18s, transform 0.18s;
+    }
+
+    .carousel-dot.active {
+      background: var(--accent);
+      transform: scale(1.3);
+    }
+
+    .carousel-counter {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+
+    .carousel-progress {
+      height: 2px;
+      background: var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .carousel-progress-bar {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      opacity: 0.5;
+      transition: width linear;
+    }
+
+    @media (max-width: 700px) {
+      .carousel-slide.active { grid-template-columns: 1fr; }
+      .carousel-left { border-right: none; border-bottom: 1px solid var(--border); }
+      .carousel-img-wrap { aspect-ratio: 460 / 215; }
+      .carousel-right { padding: 1.25rem; }
+    }
+
+    /* ── open source tools ─────────────────────────────── */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .tool-card {
+      background: var(--bg-card);
+      padding: 1.75rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      transition: background 0.18s;
+    }
+
+    .tool-card { position: relative; }
+    .tool-card:hover { background: var(--bg-hover); box-shadow: 0 0 28px rgba(0,255,136,0.1); z-index: 1; }
+
+    .tool-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .tool-name {
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .tool-name a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.18s;
+    }
+
+    .tool-name a:hover { border-color: var(--accent); }
+
+    .tool-gh-link {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      transition: color 0.18s;
+    }
+
+    .tool-gh-link:hover { color: var(--accent); }
+
+    .tool-desc {
+      font-size: 0.83rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    .tool-snippet {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      background: rgba(0,0,0,0.4);
+      border-left: 2px solid var(--accent);
+      padding: 0.5rem 0.75rem;
+      line-height: 1.5;
+    }
+
+    /* ── about ─────────────────────────────────────────── */
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-skills {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+
+    .about-skill-card {
+      background: var(--bg-card);
+      padding: 1.1rem 1.25rem;
+      transition: background 0.18s;
+    }
+
+    .about-skill-card:hover { background: var(--bg-hover); }
+
+    .about-skill-name {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .about-skill-desc {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      color: var(--text-dim);
+      line-height: 1.85;
+      margin-bottom: 1.1rem;
+    }
+
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-text strong { color: var(--text); font-weight: 600; }
+
+    .about-stack {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-top: 1.5rem;
+    }
+
+    .about-stats { display: flex; flex-direction: column; gap: 2rem; }
+
+    .stat {
+      border-left: 2px solid var(--accent);
+      padding-left: 1.4rem;
+    }
+
+    .stat-num {
+      font-family: var(--mono);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+      text-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ── outcomes ─────────────────────────────────────── */
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+    }
+
+    .outcome-card {
+      padding: 2.25rem 2rem;
+      border-right: 1px solid var(--border);
+      background: var(--bg-card);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: background 0.18s;
+    }
+
+    .outcome-card:last-child { border-right: none; }
+    .outcome-card:hover { background: var(--bg-hover); }
+
+    .outcome-tag {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--accent);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    .outcome-title {
+      font-family: var(--mono);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .outcome-desc {
+      font-size: 0.83rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .outcome-includes {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      line-height: 1.9;
+      border-top: 1px solid var(--border);
+      padding-top: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    @media (max-width: 900px) {
+      .outcomes-grid { grid-template-columns: 1fr; }
+      .outcome-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .outcome-card:last-child { border-bottom: none; }
+    }
+
+    /* ── how it works ──────────────────────────────────── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+    }
+
+    .step {
+      padding: 2.5rem 2rem;
+      border-right: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+
+    .step:last-child { border-right: none; }
+
+    .step-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.18em;
+      margin-bottom: 1.1rem;
+      display: block;
+      opacity: 0.8;
+    }
+
+    .step-title {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.7rem;
+    }
+
+    .step-desc {
+      font-size: 0.83rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* ── contact ───────────────────────────────────────── */
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .contact-blurb {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .contact-email {
+      font-family: var(--mono);
+      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-block;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.18s;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-email:hover { border-color: var(--accent); }
+
+    .contact-note {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    .contact-link {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.18s, border-color 0.18s;
+    }
+
+    .contact-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* form */
+    .form-row { margin-bottom: 1rem; }
+
+    .form-row label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-row input,
+    .form-row textarea {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 0.83rem;
+      padding: 0.72rem 1rem;
+      outline: none;
+      transition: border-color 0.18s;
+      resize: vertical;
+      -webkit-appearance: none;
+    }
+
+    .form-row input:focus,
+    .form-row textarea:focus { border-color: var(--accent); }
+
+    .form-row input::placeholder,
+    .form-row textarea::placeholder { color: var(--text-muted); }
+
+    .form-row textarea { min-height: 116px; }
+
+    .form-submit {
+      width: 100%;
+      padding: 0.88rem;
+      margin-top: 0.25rem;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+    }
+
+    .form-submit:hover {
+      background: var(--accent);
+      color: #000;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* ── footer ────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.4rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 100%;
+    }
+
+    .footer-txt {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── scroll reveal ─────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── responsive ────────────────────────────────────── */
+    @media (max-width: 1000px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-skills { min-width: unset; }
+    }
+
+    @media (max-width: 900px) {
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .skill-card:nth-child(2) { border-right: none; }
+      .skill-card:nth-child(3) { border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
+      .skill-card:nth-child(4) { border-right: none; border-top: 1px solid var(--border); }
+
+      .about-inner,
+      .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+
+      .steps { grid-template-columns: 1fr; }
+      .step { border-right: none; border-bottom: 1px solid var(--border); }
+      .step:last-child { border-bottom: none; }
+    }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--text-dim);
+      transition: background 0.18s, transform 0.22s ease, opacity 0.22s ease;
+      transform-origin: center;
+    }
+
+    .nav-hamburger:hover span { background: var(--accent); }
+
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); background: var(--accent); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); background: var(--accent); }
+
+    @media (max-width: 700px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-hamburger { display: flex; }
+      .nav-links { display: none; }
+
+    /* mobile overlay — lives outside nav so backdrop-filter doesn't trap it */
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(8,8,8,0.97);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      z-index: 198;
+    }
+
+    .mobile-overlay.open { display: flex; }
+
+    .mobile-overlay a {
+      font-family: var(--mono);
+      font-size: 1rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: color 0.18s;
+    }
+
+    .mobile-overlay a:hover { color: var(--accent); }
+
+      #hero { padding: 7rem 1.5rem 4rem; }
+
+      .section-wrap { padding: 4rem 1.5rem; }
+
+      hr.divider { margin: 0 1.5rem; }
+
+      .projects-grid { grid-template-columns: 1fr; }
+
+      footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .skill-card { border-right: none !important; border-bottom: 1px solid var(--border); }
+      .skill-card:last-child { border-bottom: none; }
+      .skill-card:nth-child(n) { border-top: none; }
+      .skill-card:first-child { border-top: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- nav -->
+  <nav>
+    <a href="#hero" class="nav-logo">LC_</a>
+    <button class="nav-hamburger" id="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#oss">Open Source</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- mobile nav overlay (outside nav so backdrop-filter doesn't trap fixed pos) -->
+  <div class="mobile-overlay" id="mobile-overlay">
+    <a href="#work" onclick="closeMobileNav()">Work</a>
+    <a href="#oss" onclick="closeMobileNav()">Open Source</a>
+    <a href="#about" onclick="closeMobileNav()">About</a>
+    <a href="#services" onclick="closeMobileNav()">Services</a>
+    <a href="#process" onclick="closeMobileNav()">Process</a>
+    <a href="#contact" onclick="closeMobileNav()">Contact</a>
+  </div>
+
+  <!-- ── hero ──────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <p class="hero-tag">// available for contract &amp; freelance</p>
+      <h1 class="hero-name">Lisa Chidem<span class="cursor"></span></h1>
+      <p class="hero-title">Senior Software Engineer</p>
+      <p class="hero-tagline">Games, desktop tools, web apps, backend systems, prototypes. I build whatever the project needs — fast.</p>
+      <a href="#contact" class="btn">Start a Project</a>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── work samples ──────────────────────────────────── -->
+  <div class="section-wrap reveal" id="work">
+    <p class="section-label">// work samples</p>
+    <h2 class="section-title">Selected Projects</h2>
+    <div class="carousel" id="project-carousel">
+      <div class="carousel-progress"><div class="carousel-progress-bar" id="carousel-progress-bar"></div></div>
+      <div class="carousel-slides">
+
+        <!-- Spinera -->
+        <div class="carousel-slide active">
+          <div class="carousel-left">
+            <div class="carousel-img-wrap">
+              <img class="carousel-img" id="cimg-sp"
+                   src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3576520/2d9f43ddbd134a25e0942e725ffca4c5ec0ca298/header.jpg?t=1777038565"
+                   alt="Spinera">
+              <a href="https://store.steampowered.com/app/3576520/Spinera/" target="_blank" rel="noopener" class="steam-badge">On Steam</a>
+            </div>
+            <div class="screenshot-strip">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3576520/3fd7f98f70908906659fcb572dd1fd35c5a0923d/ss_3fd7f98f70908906659fcb572dd1fd35c5a0923d.1920x1080.jpg?t=1777038565" class="ss-thumb active" alt="" onclick="swapCarouselImg('cimg-sp',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3576520/44f917480038e87860b207a492024eeeee374ce0/ss_44f917480038e87860b207a492024eeeee374ce0.1920x1080.jpg?t=1777038565" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-sp',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3576520/1e8e2805942a671a08edc74918c2cd697c1248db/ss_1e8e2805942a671a08edc74918c2cd697c1248db.1920x1080.jpg?t=1777038565" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-sp',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3576520/7bca830642a58f9ba29d40805d942e4000b3df2c/ss_7bca830642a58f9ba29d40805d942e4000b3df2c.1920x1080.jpg?t=1777038565" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-sp',this)">
+            </div>
+          </div>
+          <div class="carousel-right">
+            <p class="project-studio">Arvis Games · Lead UI/UX Engineer</p>
+            <p class="project-name"><a href="https://store.steampowered.com/app/3576520/Spinera/" target="_blank" rel="noopener" class="project-link">Spinera</a></p>
+            <p class="project-desc">Chaotic civilization management decided by a slot machine. Pick a leader, build Wonders, and see if luck favors your empire. Short runs, high replayability.</p>
+            <div class="tag-row"><span class="tag">Unity</span><span class="tag">Strategy</span><a href="https://store.steampowered.com/app/3576520/Spinera/" target="_blank" rel="noopener" class="tag">Steam ↗</a></div>
+          </div>
+        </div>
+
+        <!-- Bumper Tanks -->
+        <div class="carousel-slide">
+          <div class="carousel-left">
+            <div class="carousel-img-wrap">
+              <img class="carousel-img" id="cimg-bt"
+                   src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2366050/header.jpg?t=1711373613"
+                   alt="Bumper Tanks">
+              <a href="https://store.steampowered.com/app/2366050/Bumper_Tanks/" target="_blank" rel="noopener" class="steam-badge">On Steam</a>
+            </div>
+            <div class="screenshot-strip">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2366050/ss_b54a4384ace40f0422857275c6f2c56a448c53be.1920x1080.jpg?t=1711373613" class="ss-thumb active" alt="" onclick="swapCarouselImg('cimg-bt',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2366050/ss_ea1d0d29a301925b35c70044e0c77d421afe2417.1920x1080.jpg?t=1711373613" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-bt',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2366050/ss_cc4225d80feaf3a523c080cb99ea263f4c0ff709.1920x1080.jpg?t=1711373613" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-bt',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2366050/ss_f676c9de6057249f95b3a343e4e26f95d6ef4596.1920x1080.jpg?t=1711373613" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-bt',this)">
+            </div>
+          </div>
+          <div class="carousel-right">
+            <p class="project-studio">Arvis Games · Lead Engineer</p>
+            <p class="project-name"><a href="https://store.steampowered.com/app/2366050/Bumper_Tanks/" target="_blank" rel="noopener" class="project-link">Bumper Tanks</a></p>
+            <p class="project-desc">Couch multiplayer twin-stick tank shooter. Dash, collect power-ups, and blast friends across destructible arenas. Fast, chaotic, one-shot-one-kill.</p>
+            <div class="tag-row"><span class="tag">Unity</span><span class="tag">Multiplayer</span><a href="https://store.steampowered.com/app/2366050/Bumper_Tanks/" target="_blank" rel="noopener" class="tag">Steam ↗</a></div>
+          </div>
+        </div>
+
+        <!-- Good For Nothing -->
+        <div class="carousel-slide">
+          <div class="carousel-left">
+            <div class="carousel-img-wrap">
+              <img class="carousel-img" id="cimg-gfn"
+                   src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3403890/98a27af38b79b37655c511a61fbd0e8e44decb23/header.jpg?t=1757210094"
+                   alt="Good For Nothing">
+              <a href="https://store.steampowered.com/app/3403890" target="_blank" rel="noopener" class="steam-badge">On Steam</a>
+            </div>
+            <div class="screenshot-strip">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3403890/0bad61184f172ddad057e548764815f015129348/ss_0bad61184f172ddad057e548764815f015129348.1920x1080.jpg?t=1757210094" class="ss-thumb active" alt="" onclick="swapCarouselImg('cimg-gfn',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3403890/c9d882e5e84ebeb3013132e15bb6a72a2a63974d/ss_c9d882e5e84ebeb3013132e15bb6a72a2a63974d.1920x1080.jpg?t=1757210094" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-gfn',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3403890/6e3576b3fa396dbc52591622236c57baee42c872/ss_6e3576b3fa396dbc52591622236c57baee42c872.1920x1080.jpg?t=1757210094" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-gfn',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3403890/86a8c648e6c59b354aa681382d397994482c7343/ss_86a8c648e6c59b354aa681382d397994482c7343.1920x1080.jpg?t=1757210094" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-gfn',this)">
+            </div>
+          </div>
+          <div class="carousel-right">
+            <p class="project-name"><a href="https://store.steampowered.com/app/3403890" target="_blank" rel="noopener" class="project-link">Good For Nothing</a></p>
+            <p class="project-desc">Cozy scavenger shop sim. Dig through dumpsters, thrift stores, and abandoned storage — find hidden gems or total junk, sell to eccentric customers. Released Sept 2025.</p>
+            <div class="tag-row"><span class="tag">Unity</span><span class="tag">Simulation</span><a href="https://store.steampowered.com/app/3403890" target="_blank" rel="noopener" class="tag">Steam ↗</a></div>
+          </div>
+        </div>
+
+        <!-- Night Feeder -->
+        <div class="carousel-slide">
+          <div class="carousel-left">
+            <div class="carousel-img-wrap">
+              <img class="carousel-img" id="cimg-nf"
+                   src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2669390/header.jpg?t=1734514240"
+                   alt="Night Feeder">
+              <a href="https://store.steampowered.com/app/2669390/Night_Feeder/" target="_blank" rel="noopener" class="steam-badge">On Steam</a>
+            </div>
+            <div class="screenshot-strip">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2669390/ss_dc0d34d37bc5fe27136391df8e212f4fc9ffe873.1920x1080.jpg?t=1734514240" class="ss-thumb active" alt="" onclick="swapCarouselImg('cimg-nf',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2669390/ss_419289fdd50a0cfa5b6760ba0f5d8ae79ef5b94d.1920x1080.jpg?t=1734514240" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-nf',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2669390/ss_6aeb0e4aaebe62c07a914a450bfc882d67e75fb0.1920x1080.jpg?t=1734514240" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-nf',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2669390/ss_daeef102fe200fa5f52418f3f1f7fbaea7adfcef.1920x1080.jpg?t=1734514240" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-nf',this)">
+            </div>
+          </div>
+          <div class="carousel-right">
+            <p class="project-name"><a href="https://store.steampowered.com/app/2669390/Night_Feeder/" target="_blank" rel="noopener" class="project-link">Night Feeder</a></p>
+            <p class="project-desc">Bullet heaven roguelike. You are the darkness. Choose a deity, battle foes, upgrade your gear, summon minions. Released Dec 2024.</p>
+            <div class="tag-row"><span class="tag">Godot</span><span class="tag">Roguelike</span><a href="https://store.steampowered.com/app/2669390/Night_Feeder/" target="_blank" rel="noopener" class="tag">Steam ↗</a></div>
+          </div>
+        </div>
+
+        <!-- Potio Mellow -->
+        <div class="carousel-slide">
+          <div class="carousel-left">
+            <div class="carousel-img-wrap">
+              <img class="carousel-img" id="cimg-pm"
+                   src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2280740/header.jpg?t=1706253996"
+                   alt="Potio Mellow">
+              <a href="https://store.steampowered.com/app/2280740/Potio_Mellow/" target="_blank" rel="noopener" class="steam-badge">On Steam</a>
+            </div>
+            <div class="screenshot-strip">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2280740/ss_33f0fa8a997b247d75d631f1927e30fdb2be4973.1920x1080.jpg?t=1706253996" class="ss-thumb active" alt="" onclick="swapCarouselImg('cimg-pm',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2280740/ss_6e82a4361d4f711200a72f3b508e225fce51a2a5.1920x1080.jpg?t=1706253996" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-pm',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2280740/ss_4bf8e4cbc41a7c7c549ebb77eb56cef40bb44909.1920x1080.jpg?t=1706253996" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-pm',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2280740/ss_1e08973a50b93dcc5ec116abe53657e2a80eab22.1920x1080.jpg?t=1706253996" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-pm',this)">
+            </div>
+          </div>
+          <div class="carousel-right">
+            <p class="project-name"><a href="https://store.steampowered.com/app/2280740/Potio_Mellow/" target="_blank" rel="noopener" class="project-link">Potio Mellow</a></p>
+            <p class="project-desc">Turn-based card collectathon. Gather herbs and materials, craft equipment, complete objectives, travel to new locations. Released Aug 2023.</p>
+            <div class="tag-row"><span class="tag">Unity</span><span class="tag">Strategy</span><a href="https://store.steampowered.com/app/2280740/Potio_Mellow/" target="_blank" rel="noopener" class="tag">Steam ↗</a></div>
+          </div>
+        </div>
+
+        <!-- Merchant's Game -->
+        <div class="carousel-slide">
+          <div class="carousel-left">
+            <div class="carousel-img-wrap">
+              <img class="carousel-img" id="cimg-mg"
+                   src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1707570/header.jpg?t=1711373023"
+                   alt="Merchant's Game">
+              <a href="https://store.steampowered.com/app/1707570/Merchants_Game/" target="_blank" rel="noopener" class="steam-badge">On Steam</a>
+            </div>
+            <div class="screenshot-strip">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1707570/ss_f934a3dc9fbf8174340bac9b6c359c8360dc62c5.1920x1080.jpg?t=1711373023" class="ss-thumb active" alt="" onclick="swapCarouselImg('cimg-mg',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1707570/ss_f0f8f1d6d77622f54782b1249a062a4999b3ba2c.1920x1080.jpg?t=1711373023" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-mg',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1707570/ss_2938ee440ea4def2a2a6eecf7bc9aa01149d3fea.1920x1080.jpg?t=1711373023" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-mg',this)">
+              <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1707570/ss_0dbbdd894a55689d6e1c8f72310a38c9724c579f.1920x1080.jpg?t=1711373023" class="ss-thumb" alt="" onclick="swapCarouselImg('cimg-mg',this)">
+            </div>
+          </div>
+          <div class="carousel-right">
+            <p class="project-name"><a href="https://store.steampowered.com/app/1707570/Merchants_Game/" target="_blank" rel="noopener" class="project-link">Merchant's Game</a></p>
+            <p class="project-desc">2D pixel-art shop management. Hire NPCs, negotiate prices, buy and sell — all while paying off your landlord. Released Sept 2022.</p>
+            <div class="tag-row"><span class="tag">Unity</span><span class="tag">Simulation</span><a href="https://store.steampowered.com/app/1707570/Merchants_Game/" target="_blank" rel="noopener" class="tag">Steam ↗</a></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="carousel-nav" style="border-top:1px solid var(--border);padding:1rem 2rem;">
+        <button class="carousel-arrow" onclick="carouselPrev()">&#8592;</button>
+        <button class="carousel-arrow" onclick="carouselNext()">&#8594;</button>
+        <div class="carousel-dots" id="carousel-dots"></div>
+        <span class="carousel-counter" id="carousel-counter">1 / 6</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── open source tools ────────────────────────────── -->
+  <div class="section-wrap reveal" id="oss">
+    <p class="section-label">// open source</p>
+    <h2 class="section-title">Open Source Tools</h2>
+    <div class="tools-grid">
+
+      <div class="tool-card">
+        <div class="tool-header">
+          <p class="tool-name"><a href="https://github.com/lisachidem/TMPAnimatedText" target="_blank" rel="noopener">TMPAnimatedText</a></p>
+          <a href="https://github.com/lisachidem/TMPAnimatedText" class="tool-gh-link" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+        <p class="tool-desc">Unity package for animated TextMesh Pro text. Wrap text in <code style="font-family:var(--mono);font-size:0.8em;color:var(--accent)">[anim]</code> tags to apply effects — syntax similar to Godot's RichTextLabel. Installs via UPM.</p>
+        <div class="tool-snippet">"com.lisachidem.tmpanimated": "https://github.com/lisachidem/TMPAnimatedText.git?path=TMPAnimatedEffects"</div>
+        <div class="tag-row">
+          <span class="tag">C#</span>
+          <span class="tag">Unity</span>
+          <span class="tag">TextMesh Pro</span>
+          <span class="tag">MIT</span>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-header">
+          <p class="tool-name"><a href="https://github.com/lisachidem/lisas-eventbus" target="_blank" rel="noopener">lisas-eventbus</a></p>
+          <a href="https://github.com/lisachidem/lisas-eventbus" class="tool-gh-link" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+        <p class="tool-desc">Lightweight event bus package for Unity. Decouples systems without direct references — built to handle the cross-system messaging patterns that come up in every game.</p>
+        <div class="tool-snippet">// subscribe<br>EventBus&lt;OnPlayerDied&gt;.Subscribe(HandleDeath);<br>// publish<br>EventBus&lt;OnPlayerDied&gt;.Publish(new OnPlayerDied());</div>
+        <div class="tag-row">
+          <span class="tag">C#</span>
+          <span class="tag">Unity</span>
+          <span class="tag">Architecture</span>
+          <span class="tag">MIT</span>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-header">
+          <p class="tool-name"><a href="https://github.com/lisachidem/lisas-custom-ui" target="_blank" rel="noopener">lisas-custom-ui</a></p>
+          <a href="https://github.com/lisachidem/lisas-custom-ui" class="tool-gh-link" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+        <p class="tool-desc">Collection of reusable Unity UI scripts extracted from shipped projects. Covers common patterns — modals, animated panels, progress bars — that Unity's built-in UI doesn't handle cleanly.</p>
+        <div class="tag-row">
+          <span class="tag">C#</span>
+          <span class="tag">Unity</span>
+          <span class="tag">UI</span>
+          <span class="tag">MIT</span>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-header">
+          <p class="tool-name"><a href="https://github.com/lisachidem/lisas-prime-tween-extensions" target="_blank" rel="noopener">lisas-prime-tween-extensions</a></p>
+          <a href="https://github.com/lisachidem/lisas-prime-tween-extensions" class="tool-gh-link" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+        <p class="tool-desc">Extensions for the PrimeTween library — custom easing curves, sequence helpers, and shortcuts built up across multiple shipped Unity titles.</p>
+        <div class="tag-row">
+          <span class="tag">C#</span>
+          <span class="tag">Unity</span>
+          <span class="tag">PrimeTween</span>
+          <span class="tag">MIT</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── about ─────────────────────────────────────────── -->
+  <div class="section-wrap reveal" id="about">
+    <p class="section-label">// about</p>
+    <h2 class="section-title">Who I Am</h2>
+    <div class="about-inner">
+      <div class="about-text">
+        <p>Software engineer who ships games, desktop tools, backend systems, and web apps. Six commercial titles on Steam. Open-source packages used in production. Worked across Unity, Godot, L&Ouml;VE2D, raw&nbsp;C with Raylib, and web stacks including JS, Python, Electron, and Tauri.</p>
+        <p>I work fast, figure things out, and don't need hand-holding. Give me a problem — I'll have something running by tomorrow.</p>
+        <p><strong>Available for freelance and contract work worldwide.</strong></p>
+        <p class="about-stack">Unity &middot; Godot &middot; LÖVE2D &middot; C + Raylib &middot; Electron &middot; Tauri &middot; JS &middot; Python</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-num">6</div>
+          <div class="stat-label">Commercial games shipped</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">Open source packages</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Engines shipped on</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── outcomes ──────────────────────────────────────── -->
+  <div class="section-wrap reveal" id="services">
+    <p class="section-label">// what i deliver</p>
+    <h2 class="section-title">Services</h2>
+    <div class="outcomes-grid">
+
+      <div class="outcome-card">
+        <span class="outcome-tag">For founders</span>
+        <p class="outcome-title">Prototype Sprint</p>
+        <p class="outcome-desc">A working proof of concept in days, not weeks. Validate the idea before committing to a full build.</p>
+        <div class="outcome-includes">
+          → Functional prototype<br>
+          → Technical feasibility report<br>
+          → Architecture recommendation<br>
+          → Source code handoff
+        </div>
+      </div>
+
+      <div class="outcome-card">
+        <span class="outcome-tag">For indie studios</span>
+        <p class="outcome-title">Steam Vertical Slice</p>
+        <p class="outcome-desc">Core gameplay loop, UI, save system, and a shippable build in two weeks. Enough to pitch, demo, or greenlight.</p>
+        <div class="outcome-includes">
+          → Core gameplay loop<br>
+          → Main menu + UI<br>
+          → Save / load system<br>
+          → Steam-ready build
+        </div>
+      </div>
+
+      <div class="outcome-card">
+        <span class="outcome-tag">For startups</span>
+        <p class="outcome-title">MVP Build</p>
+        <p class="outcome-desc">A deployable product with real users in mind. Frontend, backend, database, and hosting — end to end.</p>
+        <div class="outcome-includes">
+          → Frontend (web or desktop)<br>
+          → Backend API + database<br>
+          → Auth + user management<br>
+          → Deployed and live
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── how it works ──────────────────────────────────── -->
+  <div class="section-wrap reveal" id="process">
+    <p class="section-label">// process</p>
+    <h2 class="section-title">How It Works</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">01</span>
+        <p class="step-title">You describe the project</p>
+        <p class="step-desc">Scope, platform, deadline. As much or as little as you have. I'll ask the right questions.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <p class="step-title">I send a quote</p>
+        <p class="step-desc">Fixed price. Clear deliverables. No surprises. You know exactly what you're getting.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <p class="step-title">50% up front, 50% on delivery</p>
+        <p class="step-desc">Fast turnaround. Two revision rounds included. Work starts immediately after deposit.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── contact ────────────────────────────────────────── -->
+  <div class="section-wrap reveal" id="contact">
+    <p class="section-label">// contact</p>
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="contact-inner">
+
+      <div>
+        <p class="contact-blurb">Ready to start? Describe the project and I'll get back to you within 24 hours.</p>
+        <a href="mailto:lisa@lisachidem.com" class="contact-email">lisa@lisachidem.com</a>
+<a href="https://www.linkedin.com/in/lisachidem" class="contact-link" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+
+      <div>
+        <form id="contact-form" action="https://formspree.io/f/xykapgkk" method="POST">
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="form-row">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="form-row">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-row">
+            <label for="message">Project</label>
+            <textarea id="message" name="message" placeholder="Describe the project, platform, and deadline..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="submit-btn">Send Message</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── footer ─────────────────────────────────────────── -->
+  <footer>
+    <span class="footer-txt">&copy; 2026 Lisa Chidem</span>
+    <span class="footer-txt">Built for speed. No framework harmed.</span>
+  </footer>
+
+  <script>
+    // mobile nav
+    const navToggle = document.getElementById('nav-toggle');
+    const mobileOverlay = document.getElementById('mobile-overlay');
+    navToggle.addEventListener('click', () => {
+      mobileOverlay.classList.toggle('open');
+      navToggle.classList.toggle('open');
+    });
+    function closeMobileNav() {
+      mobileOverlay.classList.remove('open');
+      navToggle.classList.remove('open');
+    }
+
+    // scroll reveal
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // screenshot switcher for carousel
+    function swapCarouselImg(imgId, thumb) {
+      document.getElementById(imgId).src = thumb.src;
+      thumb.closest('.screenshot-strip').querySelectorAll('.ss-thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    }
+
+    // carousel
+    (function() {
+      const slides = document.querySelectorAll('.carousel-slide');
+      const total = slides.length;
+      const INTERVAL = 4500;
+      let current = 0;
+      let timer, progressTimer, progressStart;
+
+      // build dots in first slide's nav (others are placeholders we'll sync)
+      const primaryDots = document.getElementById('carousel-dots');
+      for (let i = 0; i < total; i++) {
+        const d = document.createElement('button');
+        d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Slide ' + (i + 1));
+        d.addEventListener('click', () => goTo(i));
+        primaryDots.appendChild(d);
+      }
+
+      function updateUI() {
+        slides.forEach((s, i) => s.classList.toggle('active', i === current));
+        primaryDots.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+        document.getElementById('carousel-counter').textContent = (current + 1) + ' / ' + total;
+      }
+
+      function startProgress() {
+        const bar = document.getElementById('carousel-progress-bar');
+        bar.style.transition = 'none';
+        bar.style.width = '0%';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            bar.style.transition = 'width ' + INTERVAL + 'ms linear';
+            bar.style.width = '100%';
+          });
+        });
+      }
+
+      function goTo(n) {
+        current = (n + total) % total;
+        updateUI();
+        clearInterval(timer);
+        startProgress();
+        timer = setInterval(() => goTo(current + 1), INTERVAL);
+      }
+
+      window.carouselNext = () => goTo(current + 1);
+      window.carouselPrev = () => goTo(current - 1);
+
+      const carousel = document.getElementById('project-carousel');
+      carousel.addEventListener('mouseenter', () => { clearInterval(timer); document.getElementById('carousel-progress-bar').style.transition = 'none'; });
+      carousel.addEventListener('mouseleave', () => goTo(current));
+
+      goTo(0);
+    })();
+
+    // nav active link on scroll
+    const sections = document.querySelectorAll('[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
+          });
+        }
+      });
+    }, { threshold: 0.35 });
+
+    sections.forEach(s => observer.observe(s));
+
+    // ── D: role cycling on hero-title ────────────────────
+    (function() {
+      const roles = ['Software Engineer', 'Tools Engineer', 'Prototype Builder', 'Backend Developer', 'Game Developer'];
+      let idx = 0;
+      const el = document.querySelector('.hero-title');
+      setInterval(() => {
+        el.style.opacity = '0';
+        setTimeout(() => {
+          idx = (idx + 1) % roles.length;
+          el.textContent = roles[idx];
+          el.style.opacity = '0.9';
+        }, 350);
+      }, 2600);
+    })();
+
+    // ── C: canvas particles in hero ──────────────────────
+    (function() {
+      const hero = document.getElementById('hero');
+      const canvas = document.createElement('canvas');
+      canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;';
+      hero.insertBefore(canvas, hero.firstChild);
+      const ctx = canvas.getContext('2d');
+      let W, H, pts;
+      function resize() {
+        W = canvas.width = hero.offsetWidth;
+        H = canvas.height = hero.offsetHeight;
+      }
+      function mkPt() {
+        return { x: Math.random()*W, y: Math.random()*H,
+                 vx: (Math.random()-.5)*.25, vy: (Math.random()-.5)*.25,
+                 r: Math.random()*1.2+.4, o: Math.random()*.18+.04 };
+      }
+      resize();
+      pts = Array.from({length:38}, mkPt);
+      window.addEventListener('resize', resize);
+      (function draw() {
+        ctx.clearRect(0,0,W,H);
+        pts.forEach(p => {
+          p.x=(p.x+p.vx+W)%W; p.y=(p.y+p.vy+H)%H;
+          ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+          ctx.fillStyle=`rgba(0,255,136,${p.o})`; ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      })();
+    })();
+
+    // ── B: stat counters animate on scroll ───────────────
+    (function() {
+      const stats = [
+        { el: document.querySelector('.stat:nth-child(1) .stat-num'), target: 6, suffix: '' },
+        { el: document.querySelector('.stat:nth-child(2) .stat-num'), target: 4, suffix: '+' },
+        { el: document.querySelector('.stat:nth-child(3) .stat-num'), target: 5, suffix: '+' },
+      ];
+      let fired = false;
+      const aboutObs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting && !fired) {
+          fired = true;
+          stats.forEach(s => {
+            if (s.target === null) return;
+            let n = 0;
+            const step = Math.ceil(s.target / 20);
+            const t = setInterval(() => {
+              n = Math.min(n + step, s.target);
+              s.el.textContent = n + s.suffix;
+              if (n >= s.target) clearInterval(t);
+            }, 55);
+          });
+        }
+      }, { threshold: 0.5 });
+      const aboutSection = document.getElementById('about');
+      if (aboutSection) aboutObs.observe(aboutSection);
+    })();
+
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      try {
+        const res = await fetch(this.action, {
+          method: 'POST',
+          body: new FormData(this),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          btn.textContent = 'Sent.';
+          btn.style.background = 'var(--accent)';
+          btn.style.color = '#000';
+          this.reset();
+          setTimeout(() => {
+            btn.textContent = 'Send Message';
+            btn.disabled = false;
+            btn.style.background = '';
+            btn.style.color = '';
+          }, 3500);
+        } else {
+          btn.textContent = 'Error — try email directly';
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = 'Error — try email directly';
+        btn.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>
